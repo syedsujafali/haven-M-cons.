@@ -1,0 +1,111 @@
+import { useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { projects } from '../data/projectsData';
+
+const featured = projects.slice(0, 3);
+
+export default function PortfolioSection() {
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            el.querySelectorAll<HTMLElement>('[data-card]').forEach((item, i) => {
+              setTimeout(() => {
+                item.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+              }, i * 180);
+            });
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section id="work" ref={ref} className="mesh-sage relative overflow-hidden py-28 sm:py-40">
+      {/* Top Right Green Glow */}
+      <div className="pointer-events-none absolute -top-40 -right-48 h-[650px] w-[650px] rounded-full bg-gradient-to-bl from-[#9dbd90] to-[#c7e3bb] opacity-45 blur-[130px]" />
+      
+      {/* Bottom Left Orange Glow */}
+      <div className="pointer-events-none absolute -bottom-48 -left-40 h-[650px] w-[650px] rounded-full bg-gradient-to-tr from-[#e58a5b] to-[#f3cbab] opacity-45 blur-[130px]" />
+
+      <div className="pointer-events-none absolute right-[-6%] top-24 h-[420px] w-[420px] rounded-full bg-clay/20 blur-3xl" />
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-8">
+        <header className="mb-14 grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div className="col-span-12 flex items-center gap-3 text-[11px] uppercase tracking-[0.32em] text-olive">
+            <span className="inline-block h-px w-10 bg-olive/60" />
+            02 — Selected work
+          </div>
+          <h2 className="font-display col-span-12 text-[clamp(2.4rem,7vw,6rem)] leading-[0.95] tracking-[-0.02em] text-forest lg:col-span-9">
+            A portfolio measured in <span className="italic text-clay">rooms</span>, not square feet.
+          </h2>
+          <p className="col-span-12 max-w-md text-forest-deep lg:col-span-3 lg:pt-4">
+            Five recent projects across residential renovation, veterinary, and boutique commercial work.
+          </p>
+        </header>
+
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-12 lg:auto-rows-[260px]">
+          <Link
+            to={`/portfolio/${featured[0].id}`}
+            data-card
+            className="group relative overflow-hidden rounded-[24px] lg:col-span-8 lg:row-span-2 aspect-[4/3] lg:aspect-auto"
+            style={{ opacity: 0, transform: 'translateY(40px)' }}
+          >
+            <img src={featured[0].heroImage} alt={featured[0].title} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-forest-deep/85 via-forest-deep/10 to-transparent" />
+            <div className="absolute inset-0 flex flex-col justify-between p-6 text-white">
+              <div className="flex items-center justify-between">
+                <span className="glass-dark rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.28em]">{featured[0].tag}</span>
+              </div>
+              <div>
+                <div className="font-display text-2xl leading-tight sm:text-3xl">{featured[0].title}</div>
+                <div className="mt-1 text-xs uppercase tracking-[0.24em] opacity-80">{featured[0].location}</div>
+                <div className="mt-4 inline-flex items-center gap-2 text-sm opacity-0 transition-opacity group-hover:opacity-100">View case study <span aria-hidden="true">→</span></div>
+              </div>
+            </div>
+          </Link>
+
+          {featured.slice(1).map((project) => (
+            <Link
+              key={project.id}
+              to={`/portfolio/${project.id}`}
+              data-card
+              className="group relative overflow-hidden rounded-[24px] lg:col-span-4 aspect-[4/5] lg:aspect-auto"
+              style={{ opacity: 0, transform: 'translateY(40px)' }}
+            >
+              <img src={project.heroImage} alt={project.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-forest-deep/85 via-forest-deep/10 to-transparent" />
+              <div className="absolute inset-0 flex flex-col justify-between p-6 text-white">
+                <div className="flex items-center justify-between">
+                  <span className="glass-dark rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.28em]">{project.tag}</span>
+                </div>
+                <div>
+                  <div className="font-display text-2xl leading-tight sm:text-3xl">{project.title}</div>
+                  <div className="mt-1 text-xs uppercase tracking-[0.24em] opacity-80">{project.location}</div>
+                  <div className="mt-4 inline-flex items-center gap-2 text-sm opacity-0 transition-opacity group-hover:opacity-100">View case study <span aria-hidden="true">→</span></div>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <div className="mt-10 flex justify-center">
+          <Link to="/portfolio" className="inline-flex items-center justify-center gap-4 rounded-full bg-forest px-10 py-4 min-w-[260px] text-lg font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-2xl active:scale-95">
+            View full portfolio
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
