@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowRight, Music2 } from "lucide-react";
+import havenLogo from "../assets/haven-logo.png";
 
 const links = [
   { num: "01", label: "Home", to: "/" },
@@ -10,7 +11,6 @@ const links = [
   { num: "04", label: "Portfolio", to: "/portfolio" },
   { num: "05", label: "Contact", to: "/contact" },
 ];
-const havenLogo = "/haven-logo.png";
 
 const socialLinks = [
   {

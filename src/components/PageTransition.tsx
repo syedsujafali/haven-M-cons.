@@ -1,7 +1,7 @@
 import { ReactNode, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
-const havenLogo = "/haven-logo.png";
+import havenLogo from "../assets/haven-logo.png";
 
 export function PageTransition({ children }: { children: ReactNode }) {
     const location = useLocation();
