@@ -40,6 +40,7 @@ export default {
       animation: {
         'marquee-slow': 'marquee 38s linear infinite',
         'marquee-fast': 'marquee 16s linear infinite',
+        'marquee-turbo': 'marquee 8s linear infinite',
         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
         'scale-in': 'scaleIn 0.9s ease-out forwards',
       },

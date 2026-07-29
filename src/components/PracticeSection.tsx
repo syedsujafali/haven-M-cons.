@@ -61,7 +61,7 @@ export default function PracticeSection() {
 
           <h2
             data-reveal
-            className="font-display text-[clamp(2.4rem,6vw,5rem)] leading-[0.98] tracking-[-0.02em] text-forest"
+            className="font-display text-[clamp(2.4rem,2.6vw,5rem)] leading-[0.98] tracking-[-0.02em] text-forest"
             style={{ opacity: 0, transform: 'translateY(30px)' }}
           >
             A quieter kind of construction — where{' '}
@@ -69,7 +69,7 @@ export default function PracticeSection() {
             <span className="italic text-teal">together</span>.
           </h2>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2">
+          <div className="mt-14 grid gap-6 sm:grid-cols-2">
             {pillars.map((pillar) => (
               <div
                 key={pillar.num}

@@ -11,6 +11,7 @@ import ProjectDetailPage from './app/project-detail/page';
 import ContactPage from './app/contact/page';
 import NotFoundPage from './app/not-found/page';
 import { PageTransition } from './components/PageTransition';
+import ScrollUpButton from './components/ScrollUpButton';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -38,6 +39,7 @@ function Layout() {
         </Routes>
       </PageTransition>
       <Footer />
+      <ScrollUpButton />
     </div>
   );
 }

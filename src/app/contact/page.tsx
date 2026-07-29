@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { MapPin, Mail, Phone, Clock } from 'lucide-react';
 
-const scopes = ['Whole-Home Additions', 'Design Build', 'Value Engineering', 'Additions', 'Boutique Offices', 'Construct Veterinary Hospital', 'Not sure'];
-
 const contactInfo = [
   { icon: MapPin, label: 'Studio', value: 'Verona, NJ 07044', sub: 'By appointment only' },
   { icon: Mail, label: 'Email', value: 'gus@havenmconstruction.com', sub: 'We reply within 2 business days' },
@@ -11,7 +9,6 @@ const contactInfo = [
 ];
 
 export default function ContactPage() {
-  const [selected, setSelected] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -116,31 +113,10 @@ export default function ContactPage() {
                   <input type="text" placeholder="City, state" className="mt-3 w-full rounded-full border border-forest/15 bg-linen/60 px-5 py-4 text-sm text-forest placeholder:text-forest/40 focus:border-clay focus:outline-none transition-colors" />
                 </div>
                 <div>
-                  <label className="text-[10px] uppercase tracking-[0.28em] text-olive">Project scope</label>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {scopes.map((scope) => (
-                      <button key={scope} type="button" onClick={() => setSelected(scope)}
-                        className={`rounded-full border px-4 py-2 text-sm transition-all ${selected === scope ? 'border-clay bg-clay text-linen' : 'border-forest/20 bg-linen/60 text-forest hover:border-clay'}`}>
-                        {scope}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div>
                   <label className="text-[10px] uppercase tracking-[0.28em] text-olive">Tell us about the space</label>
                   <textarea rows={5} placeholder="The timeline, the feeling you want, anything that feels important." className="mt-3 w-full resize-none rounded-2xl border border-forest/15 bg-linen/60 p-4 text-sm text-forest placeholder:text-forest/40 focus:border-clay focus:outline-none transition-colors" />
                 </div>
-                <div>
-                  <label className="text-[10px] uppercase tracking-[0.28em] text-olive">Approximate budget range</label>
-                  <select className="mt-3 w-full rounded-full border border-forest/15 bg-linen/60 px-5 py-4 text-sm text-forest focus:border-clay focus:outline-none transition-colors appearance-none">
-                    <option value="">Select a range</option>
-                    <option>Under $150,000</option>
-                    <option>$150,000 – $500,000</option>
-                    <option>$500,000 – $1,000,000</option>
-                    <option>Over $1,000,000</option>
-                    <option>Not sure yet</option>
-                  </select>
-                </div>
+
                 <button type="submit" className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-forest px-6 py-4 text-sm font-medium text-linen transition-transform hover:scale-[1.01]">
                   Send inquiry <span aria-hidden="true">→</span>
                 </button>

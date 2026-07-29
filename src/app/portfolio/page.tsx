@@ -1,15 +1,65 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { projects, categories, type Category } from '../../data/projectsData';
 
 export default function PortfolioPage() {
   const [active, setActive] = useState<Category>('All');
+  const [filterFixed, setFilterFixed] = useState(false);
+  const [navHeight, setNavHeight] = useState(80);
+  const [filterHeight, setFilterHeight] = useState(72);
+
+  const filterRef = useRef<HTMLElement>(null);
+  const gridRef = useRef<HTMLElement>(null);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+
+  // Measure real header height (works on mobile & desktop)
+  useEffect(() => {
+    const measureNav = () => {
+      const header = document.querySelector('header');
+      if (header) setNavHeight(header.offsetHeight);
+    };
+    measureNav();
+    window.addEventListener('resize', measureNav, { passive: true });
+    return () => window.removeEventListener('resize', measureNav);
+  }, []);
+
+  // Measure filter bar height for spacer
+  useEffect(() => {
+    const measureFilter = () => {
+      if (filterRef.current) setFilterHeight(filterRef.current.offsetHeight);
+    };
+    measureFilter();
+    window.addEventListener('resize', measureFilter, { passive: true });
+    return () => window.removeEventListener('resize', measureFilter);
+  }, []);
+
+  // Fix the filter bar once the hero scrolls out of view
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setFilterFixed(!entry.isIntersecting),
+      { threshold: 0, rootMargin: `-${navHeight}px 0px 0px 0px` }
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [navHeight]);
+
+  const handleTabClick = (cat: Category) => {
+    setActive(cat);
+    setTimeout(() => {
+      const el = filterRef.current;
+      if (!el) return;
+      const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }, 50);
+  };
 
   const filtered = active === 'All' ? projects : projects.filter((p) => p.category === active);
 
   return (
     <main>
-      {/* Header */}
+      {/* Hero */}
       <section
         className="relative overflow-hidden pt-44 pb-20 sm:pt-52"
         style={{
@@ -21,10 +71,7 @@ export default function PortfolioPage() {
           ].join(', '),
         }}
       >
-        {/* Top Left Bright Glow */}
         <div className="pointer-events-none absolute -top-48 -left-48 h-[650px] w-[650px] rounded-full bg-gradient-to-br from-[#e58a5b] to-[#f3cbab] opacity-55 blur-[130px]" />
-        
-        {/* Top Right Bright Glow */}
         <div className="pointer-events-none absolute -top-48 -right-48 h-[650px] w-[650px] rounded-full bg-gradient-to-bl from-[#9dbd90] to-[#c7e3bb] opacity-50 blur-[130px]" />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-8">
@@ -40,15 +87,25 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* Filter */}
-      <section className="bg-linen py-6 border-b border-forest/10 sticky top-[80px] z-40 backdrop-blur-sm bg-linen/90">
+      {/* Sentinel – fires when hero bottom leaves viewport */}
+      <div ref={sentinelRef} className="h-0" />
+
+      {/* Filter bar */}
+      <section
+        ref={filterRef}
+        style={filterFixed ? { top: navHeight } : undefined}
+        className={`bg-linen/95 py-4 border-b border-forest/10 z-40 backdrop-blur-sm transition-shadow duration-300 ${
+          filterFixed ? 'fixed left-0 right-0 shadow-md' : 'relative'
+        }`}
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-8">
-          <div className="flex flex-wrap gap-2">
+          {/* Horizontally scrollable on mobile, wrapping on desktop */}
+          <div className="flex gap-2 overflow-x-auto pb-0.5 sm:flex-wrap sm:overflow-visible scrollbar-none">
             {categories.map((cat) => (
               <button
                 key={cat}
-                onClick={() => setActive(cat)}
-                className={`rounded-full border px-5 py-2 text-sm font-medium transition-all ${
+                onClick={() => handleTabClick(cat)}
+                className={`flex-shrink-0 rounded-full border px-5 py-2 text-sm font-medium transition-all ${
                   active === cat
                     ? 'border-forest bg-forest text-linen'
                     : 'border-forest/20 text-forest hover:border-forest/60'
@@ -61,8 +118,11 @@ export default function PortfolioPage() {
         </div>
       </section>
 
+      {/* Spacer – prevents layout jump when filter goes fixed */}
+      {filterFixed && <div style={{ height: filterHeight }} />}
+
       {/* Grid */}
-      <section className="bg-linen py-16">
+      <section ref={gridRef} className="bg-linen py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-8">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((project) => (

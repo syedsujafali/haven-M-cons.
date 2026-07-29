@@ -41,16 +41,16 @@ export default function PortfolioSection() {
 
       <div className="pointer-events-none absolute right-[-6%] top-24 h-[420px] w-[420px] rounded-full bg-clay/20 blur-3xl" />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-8">
         <header className="mb-14 grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="col-span-12 flex items-center gap-3 text-[11px] uppercase tracking-[0.32em] text-olive">
-            <span className="inline-block h-px w-10 bg-olive/60" />
+          <div className="col-span-12 flex items-center gap-3 text-[11px] uppercase tracking-[0.32em] text-forest sm:text-olive">
+            <span className="inline-block h-px w-10 bg-forest/60 sm:bg-olive/60" />
             02 — Selected work
           </div>
-          <h2 className="font-display col-span-12 text-[clamp(2.4rem,7vw,6rem)] leading-[0.95] tracking-[-0.02em] text-forest lg:col-span-9">
+          <h2 className="font-display col-span-12 text-[clamp(2rem,7vw,6rem)] leading-[1.05] sm:leading-[0.95] tracking-[-0.02em] text-forest">
             A portfolio measured in <span className="italic text-clay">rooms</span>, not square feet.
           </h2>
-          <p className="col-span-12 max-w-md text-forest-deep lg:col-span-3 lg:pt-4">
+          <p className="col-span-12 max-w-md text-sm sm:text-base text-forest lg:col-span-3 lg:pt-4">
             Five recent projects across residential renovation, veterinary, and boutique commercial work.
           </p>
         </header>
@@ -101,7 +101,10 @@ export default function PortfolioSection() {
         </div>
 
         <div className="mt-10 flex justify-center">
-          <Link to="/portfolio" className="inline-flex items-center justify-center gap-4 rounded-full bg-forest px-10 py-4 min-w-[260px] text-lg font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-2xl active:scale-95">
+          <Link
+            to="/portfolio"
+            className="inline-flex items-center justify-center gap-4 rounded-full !bg-forest px-10 py-4 min-w-[260px] text-lg font-semibold !text-white !opacity-100 transition-all duration-300 hover:scale-105 hover:shadow-2xl active:scale-95"
+          >
             View full portfolio
           </Link>
         </div>
