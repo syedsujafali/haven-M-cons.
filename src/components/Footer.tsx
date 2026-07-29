@@ -75,7 +75,7 @@ export default function Footer() {
       <div className="pointer-events-none absolute right-0 top-10 h-[420px] w-[420px] rounded-full bg-clay/20 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-40 left-0 h-[420px] w-[420px] rounded-full bg-teal/20 blur-3xl" />
 
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-8 pt-16 sm:pt-24 pb-8">
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-8 pt-16 lg:pt-12 pb-8 lg:pb-6">
 
         {/* ── Top grid: tagline + link columns ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
@@ -88,11 +88,13 @@ export default function Footer() {
             </div>
             <div
               className="font-display mt-6 leading-[0.9] tracking-[-0.03em]"
-              style={{ fontSize: 'clamp(2.8rem, 8vw, 9rem)' }}
+              style={{ fontSize: 'clamp(2.2rem, 5vw, 5rem)' }}
             >
               Let&apos;s
               <br />
-              <span className="italic text-clay">build a haven.</span>
+              build
+              <br />
+              <span className="italic text-clay">a haven.</span>
             </div>
           </div>
 
@@ -124,23 +126,25 @@ export default function Footer() {
         </div>
 
         {/* ── Watermark ── constrained so it never scrolls horizontally */}
-        <div aria-hidden="true" className="mt-12 sm:mt-16 select-none w-full overflow-hidden">
+        <div aria-hidden="true" className="mt-12 lg:mt-6 select-none w-full overflow-hidden">
           <div
-            className="font-display leading-[0.85] tracking-[-0.05em] text-linen/10 whitespace-nowrap"
-            style={{ fontSize: 'clamp(2.5rem, 16vw, 18rem)' }}
+            className="font-display leading-[0.85] tracking-[0.35em] text-linen/10 whitespace-nowrap"
+            style={{ fontSize: 'clamp(2.5rem, 12vw, 12rem)' }}
           >
             HAVEN <span className="text-clay">M</span>
           </div>
           <div
-            className="font-display leading-[0.85] tracking-[-0.05em] text-linen/10 uppercase whitespace-nowrap"
-            style={{ fontSize: 'clamp(1.4rem, 9vw, 10rem)' }}
+            className="mt-1.5 font-display leading-[0.85] text-linen/10 uppercase whitespace-nowrap flex justify-between w-full"
+            style={{ fontSize: 'clamp(1.2rem, 6.5vw, 6.5rem)' }}
           >
-            CONSTRUCTION
+            {'CONSTRUCTION'.split('').map((char, i) => (
+              <span key={i}>{char}</span>
+            ))}
           </div>
         </div>
 
         {/* ── Bottom bar ── */}
-        <div className="mt-6 sm:mt-8 border-t border-linen/15 pt-6 text-xs text-linen/60">
+        <div className="mt-6 lg:mt-4 border-t border-linen/15 pt-6 lg:pt-4 text-xs text-linen/60">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
             {/* Copyright + socials */}
