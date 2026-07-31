@@ -4,9 +4,9 @@ import { useLocation } from "react-router-dom";
 import havenLogo from "../assets/haven-logo.png";
 
 const EASE = [0.22, 1, 0.36, 1]; // Very snappy and smooth ease-out
-const DURATION = 0.4;
-const EXIT_DURATION = 0.25;
-const DELAY = 0.15;
+const DURATION = 0.35;
+const EXIT_DURATION = 0.2;
+const DELAY = 0.1;
 
 export function PageTransition({ children }: { children: ReactNode }) {
     const location = useLocation();

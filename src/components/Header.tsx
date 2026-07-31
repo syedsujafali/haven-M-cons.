@@ -79,7 +79,7 @@ export default function Header() {
     setIsTransitioning(true);
     const timer = setTimeout(() => {
       setIsTransitioning(false);
-    }, 1200); // 350ms exit + 800ms enter + slight buffer
+    }, 800); // Smoother page transitions (200ms exit + 350ms enter + slight buffer)
     return () => clearTimeout(timer);
   }, [location.pathname]);
 
