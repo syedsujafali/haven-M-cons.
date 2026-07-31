@@ -158,17 +158,27 @@ export default function Header() {
         <button
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle Menu"
-          className="pointer-events-auto flex items-center justify-center h-10 w-10 rounded-full bg-forest/10 border border-forest/20 text-forest transition-transform active:scale-95 lg:hidden"
+          className={`pointer-events-auto relative flex items-center justify-center h-10 w-10 rounded-full border transition-all duration-500 overflow-hidden active:scale-95 lg:hidden ${
+            open
+              ? "bg-forest border-forest text-[#F5F2EC]"
+              : "bg-forest/10 border-forest/20 text-forest"
+          }`}
         >
-          <div className="flex flex-col gap-1.5 items-center justify-center">
+          <div className="flex flex-col gap-[6px] items-center justify-center w-full h-full">
             <span
-              className={`h-0.5 w-5 bg-forest transition-all duration-300 ${open ? 'translate-y-[4px] rotate-45' : ''}`}
+              className={`block h-[2px] w-5 rounded-full transition-all duration-500 ease-[cubic-bezier(0.87,0,0.13,1)] ${
+                open ? 'translate-y-[8px] rotate-[225deg] bg-[#F5F2EC]' : 'bg-forest'
+              }`}
             />
             <span
-              className={`h-0.5 w-5 bg-forest transition-all duration-300 ${open ? 'opacity-0' : ''}`}
+              className={`block h-[2px] w-5 rounded-full transition-all duration-300 ease-out ${
+                open ? 'opacity-0 scale-x-0 bg-[#F5F2EC]' : 'bg-forest'
+              }`}
             />
             <span
-              className={`h-0.5 w-5 bg-forest transition-all duration-300 ${open ? '-translate-y-[4px] -rotate-45' : ''}`}
+              className={`block h-[2px] w-5 rounded-full transition-all duration-500 ease-[cubic-bezier(0.87,0,0.13,1)] ${
+                open ? '-translate-y-[8px] -rotate-[225deg] bg-[#F5F2EC]' : 'bg-forest'
+              }`}
             />
           </div>
         </button>
