@@ -9,7 +9,8 @@ const links = [
   { num: "02", label: "About", to: "/about" },
   { num: "03", label: "Services", to: "/services" },
   { num: "04", label: "Portfolio", to: "/portfolio" },
-  { num: "05", label: "Contact", to: "/contact" },
+  { num: "05", label: "Showcase", to: "/showcase" },
+  { num: "06", label: "Contact", to: "/contact" },
 ];
 
 const socialLinks = [
@@ -63,6 +64,7 @@ const socialLinks = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -71,6 +73,15 @@ export default function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Show a solid background in the header during the entire page transition wipe (exit + enter)
+  useEffect(() => {
+    setIsTransitioning(true);
+    const timer = setTimeout(() => {
+      setIsTransitioning(false);
+    }, 1200); // 350ms exit + 800ms enter + slight buffer
+    return () => clearTimeout(timer);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (!open) return;
@@ -100,8 +111,8 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-[999] px-3 pt-3 sm:px-6 sm:pt-4 pointer-events-none">
       {/* Fixed Luxury Floating Glass Header Bar */}
       <div
-        className={`pointer-events-auto mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 rounded-full px-5 py-2.5 sm:px-7 transition-all duration-300 ${scrolled
-          ? "bg-[#F5F2EC]/45 border border-white/40 text-forest shadow-[0_12px_30px_-12px_rgba(35,67,58,0.16)] backdrop-blur-xl"
+        className={`pointer-events-auto mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 rounded-full px-5 py-2.5 sm:px-7 transition-all duration-300 ${scrolled || isTransitioning
+          ? "bg-[#F5F2EC]/90 border border-white/60 text-forest shadow-[0_12px_30px_-12px_rgba(35,67,58,0.16)] backdrop-blur-xl"
           : "bg-transparent border-transparent text-forest shadow-none backdrop-blur-none"
           }`}
       >

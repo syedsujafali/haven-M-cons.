@@ -4,7 +4,9 @@ import { useLocation } from "react-router-dom";
 import havenLogo from "../assets/haven-logo.png";
 
 const EASE = [0.76, 0, 0.24, 1]; // Premium cinematic ease
-const DURATION = 1.3;
+const DURATION = 0.8;
+const EXIT_DURATION = 0.35;
+const DELAY = 0.2;
 
 export function PageTransition({ children }: { children: ReactNode }) {
     const location = useLocation();
@@ -38,7 +40,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
                                 scale: 1,
                                 transition: {
                                     duration: DURATION - 0.2,
-                                    delay: 0.3,
+                                    delay: DELAY,
                                     ease: EASE,
                                 },
                             },
@@ -72,7 +74,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
                             exit: {
                                 y: ["-100%", "0%"],
                                 transition: {
-                                    duration: 0.5,
+                                    duration: EXIT_DURATION,
                                     ease: EASE,
                                 },
                             },
@@ -97,7 +99,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
                             exit: {
                                 y: ["100%", "0%"],
                                 transition: {
-                                    duration: 0.5,
+                                    duration: EXIT_DURATION,
                                     ease: EASE,
                                 },
                             },
@@ -123,7 +125,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
                             exit: {
                                 opacity: [0, 1],
                                 scale: [0.95, 1],
-                                transition: { duration: 0.5, ease: EASE },
+                                transition: { duration: EXIT_DURATION, ease: EASE },
                             },
                         }}
                         className="fixed inset-0 z-[102] flex items-center justify-center pointer-events-none p-4 transform-gpu"
