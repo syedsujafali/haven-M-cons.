@@ -16,7 +16,7 @@ const showcaseItems = [
   },
   {
     id: 2,
-    title: "Luxury Kitchen Design",
+    title: "Luxury Interior Design",
     type: "image",
     src: asset5,
   },

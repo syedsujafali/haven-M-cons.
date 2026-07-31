@@ -107,11 +107,15 @@ export default function Header() {
   }, [open]);
 
 
+  // Force solid background on Project Detail pages since they have a dark hero image
+  const isProjectDetail = location.pathname.startsWith("/portfolio/") && location.pathname !== "/portfolio";
+  const showSolidBackground = scrolled || isTransitioning || isProjectDetail;
+
   return (
     <header className="fixed top-0 left-0 right-0 z-[999] px-3 pt-3 sm:px-6 sm:pt-4 pointer-events-none">
       {/* Fixed Luxury Floating Glass Header Bar */}
       <div
-        className={`pointer-events-auto mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 rounded-full px-5 py-2.5 sm:px-7 transition-all duration-300 ${scrolled || isTransitioning
+        className={`pointer-events-auto mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 rounded-full px-5 py-2.5 sm:px-7 transition-all duration-300 ${showSolidBackground
           ? "bg-[#F5F2EC]/90 border border-white/60 text-forest shadow-[0_12px_30px_-12px_rgba(35,67,58,0.16)] backdrop-blur-xl"
           : "bg-transparent border-transparent text-forest shadow-none backdrop-blur-none"
           }`}

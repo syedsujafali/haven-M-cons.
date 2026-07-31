@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import havenLogo from "../assets/haven-logo.png";
 
-const EASE = [0.76, 0, 0.24, 1]; // Premium cinematic ease
-const DURATION = 0.8;
-const EXIT_DURATION = 0.35;
-const DELAY = 0.2;
+const EASE = [0.22, 1, 0.36, 1]; // Very snappy and smooth ease-out
+const DURATION = 0.4;
+const EXIT_DURATION = 0.25;
+const DELAY = 0.15;
 
 export function PageTransition({ children }: { children: ReactNode }) {
     const location = useLocation();
@@ -39,7 +39,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
                                 y: 0,
                                 scale: 1,
                                 transition: {
-                                    duration: DURATION - 0.2,
+                                    duration: DURATION,
                                     delay: DELAY,
                                     ease: EASE,
                                 },
@@ -67,7 +67,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
                                 y: ["0%", "0%", "-100%"],
                                 transition: {
                                     duration: DURATION,
-                                    times: [0, 0.35, 1],
+                                    times: [0, 0.1, 1],
                                     ease: EASE,
                                 },
                             },
@@ -92,7 +92,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
                                 y: ["0%", "0%", "100%"],
                                 transition: {
                                     duration: DURATION,
-                                    times: [0, 0.35, 1],
+                                    times: [0, 0.1, 1],
                                     ease: EASE,
                                 },
                             },
@@ -118,7 +118,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
                                 scale: [1, 1, 1, 1.05],
                                 transition: {
                                     duration: DURATION,
-                                    times: [0, 0.15, 0.35, 1],
+                                    times: [0, 0.1, 0.2, 1],
                                     ease: EASE,
                                 },
                             },

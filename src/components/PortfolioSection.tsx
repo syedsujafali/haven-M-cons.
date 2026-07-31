@@ -51,7 +51,7 @@ export default function PortfolioSection() {
             A portfolio measured in <span className="italic text-clay">rooms</span>, not square feet.
           </h2>
           <p className="col-span-12 max-w-md text-sm sm:text-base text-forest lg:col-span-3 lg:pt-4">
-            Five recent projects across residential renovation, veterinary, and boutique commercial work.
+            We specialize in high-end commercial and residential work, delivering bespoke architectural and interior design solutions tailored to your unique vision.
           </p>
         </header>
 
@@ -63,17 +63,7 @@ export default function PortfolioSection() {
             style={{ opacity: 0, transform: 'translateY(40px)' }}
           >
             <img src={featured[0].heroImage} alt={featured[0].title} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-forest-deep/85 via-forest-deep/10 to-transparent" />
-            <div className="absolute inset-0 flex flex-col justify-between p-6 text-white">
-              <div className="flex items-center justify-between">
-                <span className="glass-dark rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.28em]">{featured[0].tag}</span>
-              </div>
-              <div>
-                <div className="font-display text-2xl leading-tight sm:text-3xl">{featured[0].title}</div>
-                <div className="mt-1 text-xs uppercase tracking-[0.24em] opacity-80">{featured[0].location}</div>
-                <div className="mt-4 inline-flex items-center gap-2 text-sm opacity-0 transition-opacity group-hover:opacity-100">View case study <span aria-hidden="true">→</span></div>
-              </div>
-            </div>
+            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </Link>
 
           {featured.slice(1).map((project) => (
@@ -85,17 +75,7 @@ export default function PortfolioSection() {
               style={{ opacity: 0, transform: 'translateY(40px)' }}
             >
               <img src={project.heroImage} alt={project.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-forest-deep/85 via-forest-deep/10 to-transparent" />
-              <div className="absolute inset-0 flex flex-col justify-between p-6 text-white">
-                <div className="flex items-center justify-between">
-                  <span className="glass-dark rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.28em]">{project.tag}</span>
-                </div>
-                <div>
-                  <div className="font-display text-2xl leading-tight sm:text-3xl">{project.title}</div>
-                  <div className="mt-1 text-xs uppercase tracking-[0.24em] opacity-80">{project.location}</div>
-                  <div className="mt-4 inline-flex items-center gap-2 text-sm opacity-0 transition-opacity group-hover:opacity-100">View case study <span aria-hidden="true">→</span></div>
-                </div>
-              </div>
+              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </Link>
           ))}
         </div>

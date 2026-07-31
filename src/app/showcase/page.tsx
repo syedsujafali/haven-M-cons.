@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, Image as ImageIcon, X } from "lucide-react";
+import { Play, Image as ImageIcon, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 
@@ -38,7 +38,7 @@ const showcaseData = [
   },
   {
     id: 5,
-    title: "Luxury Kitchen Design",
+    title: "Luxury Interior Design",
     category: "Interior Design",
     type: "image",
     src: asset5,
@@ -59,6 +59,37 @@ export default function ShowcasePage() {
   const categories = ["All", "Architecture", "Interior Design", "Commercial"];
 
   const filteredData = filter === "All" ? showcaseData : showcaseData.filter(item => item.category === filter);
+
+  const activeIndex = filteredData.findIndex(item => item.id === activeMedia?.id);
+
+  const handleNext = () => {
+    if (filteredData.length <= 1) return;
+    if (activeIndex < filteredData.length - 1) {
+      setActiveMedia(filteredData[activeIndex + 1]);
+    } else {
+      setActiveMedia(filteredData[0]);
+    }
+  };
+
+  const handlePrev = () => {
+    if (filteredData.length <= 1) return;
+    if (activeIndex > 0) {
+      setActiveMedia(filteredData[activeIndex - 1]);
+    } else {
+      setActiveMedia(filteredData[filteredData.length - 1]);
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!activeMedia) return;
+      if (e.key === "ArrowRight") handleNext();
+      if (e.key === "ArrowLeft") handlePrev();
+      if (e.key === "Escape") setActiveMedia(null);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeMedia, activeIndex, filteredData]);
 
   useEffect(() => {
     if (activeMedia) {
@@ -122,10 +153,8 @@ export default function ShowcasePage() {
         <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
           {filteredData.map((item, index) => (
             <motion.div
-              layout
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
               key={item.id}
               className="group relative rounded-3xl overflow-hidden cursor-pointer break-inside-avoid transform-gpu"
@@ -185,6 +214,29 @@ export default function ShowcasePage() {
               >
                 <X className="w-6 h-6" />
               </motion.button>
+
+              {filteredData.length > 1 && (
+                <>
+                  <motion.button
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    onClick={(e) => { e.stopPropagation(); handlePrev(); }}
+                    className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-[100000] h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors duration-300 backdrop-blur-md border border-white/20"
+                  >
+                    <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8" />
+                  </motion.button>
+                  <motion.button
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    onClick={(e) => { e.stopPropagation(); handleNext(); }}
+                    className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-[100000] h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors duration-300 backdrop-blur-md border border-white/20"
+                  >
+                    <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8" />
+                  </motion.button>
+                </>
+              )}
               
               <motion.div 
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
